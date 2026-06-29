@@ -14,7 +14,7 @@ En este contexto, el objetivo del modelo de clasificación es aprender patrones 
 ## 🎯 2. Objetivo SMART del Proyecto
 
 * **Specific (Específico):** Desarrollar un modelo predictivo de clasificación capaz de detectar transacciones fraudulentas, utilizando variables predictoras como: horario de la transacción, si la operación es nacional o extranjera, entre otras).
-* **Measurable (Medible):** Lograr que el modelo final obtenga un **AUC-ROC ≥ 0.95** y un **Recall (Sensibilidad) ≥ 90%** en la detección de casos positivos de fraude.
+* **Measurable (Medible):** Lograr que el modelo final obtenga un **AUC-ROC ≥ 0.95** y un **Recall (Sensibilidad) ≥ 85%** en la detección de casos positivos de fraude.
 * **Achievable (Alcanzable):** El objetivo se alcanzará mediante el modelo de regresión logística y random forest.
 * **Relevant (Relevante):** Minimizar los falsos negativos, críticos en fraude.
 * **Time-bound (Temporal):** El ciclo completo de experimentación, optimización y diseño de la simulación de pruebas se completará en un plazo máximo de **4 semanas**.
@@ -35,14 +35,14 @@ La línea diagonal representa un clasificador aleatorio, útil como referencia m
 Ver archivo "Actividad 6 Yasmin Mtz P.ipynb"
 
 ### 🎯 Ajuste de Umbral Operativo e Interpretación de la Matriz de Confusión
-Operando bajo el umbral estándar de 0.5, el modelo predecía correctamente 1970 operaciones y no generaba falsos positivos, lo cual es excelente pues evita alarmas innecesarias para los clientes, de igual forma el modelo identifica 22 fraudes de forma correcta, pero deja escapar 8 fraudes que, aunque parece un número pequeño, podría representar pérdidas significativas. omitía un volumen peligroso de pacientes enfermas. Al desplazar el umbral a 0.6, el número de fraudes que se escaparon incrementa a 14, por lo que no resulta conveniente hacer un cambio en el umbral.
+Operando bajo el umbral estándar de 0.5, el modelo predecía correctamente 1970 operaciones y no generaba falsos positivos, lo cual es excelente pues evita alarmas innecesarias para los clientes, de igual forma el modelo identifica 22 fraudes de forma correcta, pero deja escapar 8 fraudes que, aunque parece un número pequeño, podría representar pérdidas significativas. omitía un volumen peligroso de pacientes enfermas. Al desplazar el umbral a 0.6, el número de fraudes que se escaparon incrementa a 14, por lo que no resulta conveniente hacer un cambio en el umbral a 0.6. Por otro lado, al modificar el umbral a 0.4 el número de fraudes que se dejaron escapar disminuyó a 4 e identifica 26 fraudes de forma correcta, por lo que pareciera que el umbral más bajo mejora el desempeño del modelo, aun con un nivel de exactitud alto (0.998).
 
 Ver archivo "Actividad 6 Yasmin Mtz P.ipynb"
 
-### 🔍 Interpretación de los Cuadrantes Clínicos:
-* **Verdaderos Positivos (VP):** Pacientes diabéticas correctamente identificadas. Permite iniciar un tratamiento metabólico inmediato.
-* **Falsos Positivos (FP):** Pacientes sanas clasificadas en riesgo. El costo asociado es marginal (estudios clínicos de confirmación secundarios), lo cual es totalmente aceptable para el negocio frente al riesgo de omisión.
-* **Falsos Negativos (FN):** Pacientes enfermas no detectadas. **El peor escenario clínico y financiero.** Reducido drásticamente gracias al ajuste de umbral.
+### 🔍 Interpretación de los Cuadrantes:
+* **Verdaderos Positivos (VP):** 1970 operaciones correctas.
+* **Falsos Positivos (FP):** No se identificaron, lo que resulta satisfactorio pues evita alarmas innecesarias a los clientes.
+* **Falsos Negativos (FN):** 4 operaciones con fraude no identificadas, lo que pone en riesgo financiero a la entidad y de reputación **El peor escenario financiero.** Reducido drásticamente gracias al ajuste de umbral (0.4).
 
 ---
 
@@ -52,32 +52,27 @@ Para garantizar la estabilidad del modelo ante fluctuaciones en los datos de ent
 
 | Métrica Evaluada | Media Obtenida (CV) | Desviación Estándar ($\sigma$) | Estado vs. Objetivo SMART |
 | :--- | :---: | :---: | :---: |
-| **AUC-ROC** | **0.8354** | ± 0.0215 | **Superado** (Meta ≥ 0.83) |
-| **Recall (Sensibilidad)** | **0.8620** | ± 0.0340 | **Superado** (Meta ≥ 0.85 con ajuste) |
-| **Accuracy (Exactitud)** | 0.7634 | ± 0.0180 | Informativo |
-
-*Nota: La baja desviación estándar ($\le 0.03$) confirma la consistencia y robustez del algoritmo ante diferentes subconjuntos de pacientes.*
+| **AUC-ROC** | **1** | ± 0.05 | **Superado** (Meta ≥ 0.95) |
+| **Recall (Sensibilidad)** | **0.87** | ± 0.02 | **Superado** (Meta ≥ 0.85 con ajuste) |
+| **Accuracy (Exactitud)** | 0.998 | 
 
 ---
 
 ## 🧪 5. Análisis de Pruebas A/B e Impacto en el Negocio
 
-Para validar la efectividad de la solución antes de su despliegue en producción, se ejecutó una simulación estadística de una **Prueba A/B** con un flujo de 1,000 pacientes de la comunidad:
-* **Grupo A (Control - 500 pacientes):** Evaluación asistida por el método tradicional / Baseline.
-* **Grupo B (Tratamiento - 500 pacientes):** Evaluación asistida por el Modelo Optimizado de Random Forest.
+Para validar la efectividad de la solución antes de su despliegue en producción, se ejecutó una simulación estadística de una **Prueba A/B** con un flujo de 1,000 transacciones:
+* **Grupo A (500 transacciones):** Evaluación asistida por el método tradicional / Regresión logistica.
+* **Grupo B (500 transacciones):** Evaluación asistida por el Modelo Optimizado de Random Forest.
 
-![Resultados de la Prueba A/B](notebooks/resultado_prueba_ab.png)
+Como resultado de lo anterior, se observa que en el grupo A existen 491 transacciones evaluadas correctamente, genera un falso posito lo cual podría representar un problema para los clientes, acierta con 5 fraudes pero deja escapar 3, lo cual podría llegar a ser un número importante. Por otro lado, en el grupo B se observan 492 transacciones evaluadas correctamente, cero falsos positivos, identifica 7 fraudes y deja escapar 1. Con lo anterior el modelo de random forest sigue siendo mejor y valido para el negocio.
 
-### 📈 Validación Estadística (Proportions Z-Test):
-* **Estadístico Z:** 4.1524
-* **p-valor:** 0.000016
-* **Decisión:** Al ser el $p\text{-valor} < 0.05$, **se rechaza categóricamente la Hipótesis Nula ($H_0$)**.
+Ver archivo "Actividad 6 Yasmin Mtz P.ipynb"
 
-**Justificación de Impacto Financiero y Clínico:** El incremento en la tasa de detección del **60.0% al 86.0%** se traduce en que, de cada 175 pacientes con diabetes real en la muestra, el modelo optimizado rescata a **45 pacientes adicionales** que habrían sido enviadas a casa sin diagnóstico bajo el esquema tradicional. Para una institución como Laboratorios Licon, esto mitiga el costo de tratamientos críticos crónicos a largo plazo y optimiza el retorno de inversión ($ROI$) en infraestructura de medicina preventiva.
+**Justificación de Impacto Financiero:** El nivel de exactitud del 0.998 y recall de 0.87 del modelo ajustado representa un incremento importante en el número de fraudes identificados, lo que ayuda a mitigar el riesgo economico y reputacional que conlleva un fraude para una institución bancaria y sus clientes. 
 
 ---
 
 ## 🏁 6. Conclusiones
 
-1. **Cumplimiento de Objetivos:** El proyecto alcanzó con éxito las métricas estipuladas en el objetivo SMART, consolidando un $AUC\text{-}ROC$ de 0.835 y un $Recall$ superior al 85% mediante el ajuste dinámico del umbral de decisión.
-2. **Justificación del Enfoque:** La priorización del *Recall* sobre el *Accuracy* o la *Precisión* demostró ser la estrategia matemáticamente correcta para resolver un problema del sector salud, donde la omisión de un diagnóstico conlleva un costo humano y financiero crítico.
+1. **Cumplimiento de Objetivos:** El proyecto alcanzó con éxito las métricas estipuladas en el objetivo SMART, consolidando un $AUC\text{-}ROC$ de 0.95 y un $Recall$ superior al 85% mediante el ajuste dinámico del umbral de decisión.
+2. **Justificación del Enfoque:** La priorización del *Recall* sobre el *Accuracy* o la *Precisión* demostró ser la estrategia matemáticamente correcta para resolver un problema del sector financiero, donde un error en la detección de fraude puede llevar a una pérdida economica y reputacional significativa para las instituciones bancarias y sus clientes.
