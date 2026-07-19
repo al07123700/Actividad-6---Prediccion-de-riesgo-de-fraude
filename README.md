@@ -76,3 +76,73 @@ Ver archivo "Actividad 6 Yasmin Mtz P.ipynb"
 
 1. **Cumplimiento de Objetivos:** El proyecto alcanzó con éxito las métricas estipuladas en el objetivo SMART, consolidando un $AUC\text{-}ROC$ de 0.95 y un $Recall$ superior al 85% mediante el ajuste dinámico del umbral de decisión.
 2. **Justificación del Enfoque:** La priorización del *Recall* sobre el *Accuracy* o la *Precisión* demostró ser la estrategia matemáticamente correcta para resolver un problema del sector financiero, donde un error en la detección de fraude puede llevar a una pérdida económica y reputacional significativa para las instituciones bancarias y sus clientes.
+
+
+## 🏁 FASE II - DESPLIEGUE
+
+Este proyecto implementa un sistema completo de detección de fraude en transacciones financieras.
+Incluye:
+
+* API REST desarrollada con FastAPI para recibir datos de transacciones y generar predicciones.
+
+* Frontend interactivo en Streamlit para que el usuario ingrese datos y visualice resultados.
+
+* Modelo de Machine Learning entrenado para clasificar transacciones como fraudulentas o legítimas.
+
+* Contenedor Docker que integra backend + frontend + modelo en una sola imagen ejecutable.
+
+El objetivo es ofrecer una solución modular, reproducible y fácilmente desplegable en entornos locales o en la nube (este último no se incluye aquí).
+
+## 🏗️ Arquitectura del sistema
+La arquitectura se compone de tres módulos principales:
+
+🔹 1. Backend (FastAPI)
+
+* Expone el endpoint /predict
+* Recibe un JSON con los datos de la transacción
+* Procesa el modelo de ML
+* Devuelve probabilidad de fraude y clasificación
+
+🔹 2. Frontend (Streamlit)
+
+* Interfaz web para ingresar datos
+* Envía solicitudes al backend
+* Muestra resultados de predicción
+
+🔹 3. Modelo de Machine Learning
+
+* Entrenado previamente con datos de transacciones
+* Serializado en formato .pkl o .joblib
+* Cargado por el backend al iniciar el contenedor
+
+🔹 4. Docker
+
+* Unifica backend + frontend + modelo
+* Ejecuta ambos servicios mediante start.sh
+* Expone:
+     API en localhost:8000
+     Frontend en localhost:8501
+
+## 🧰 Tecnologías usadas
+
+Componente/	              Tecnología
+* Backend/	                FastAPI
+* Frontend/	              Streamlit
+* Modelo ML/	              Scikit-learn
+* Serialización/	          Joblib / Pickle
+* Contenedores/	          Docker
+* Lenguaje/	              Python 3.11
+* Servidor API/	          Uvicorn
+* Sistema operativo base/	python:3.11-slim
+
+## 🐳 Cómo ejecutar con Docker
+
+* Construir la imagen:
+  docker build -t fraud-risk-app -f docker/Dockerfile .
+
+* Ejecutar el contenedor
+  docker run -p 8000:8000 -p 8501:8501 fraud-risk-app
+
+* Acceder a servicios
+  API: http://localhost:8000/docs
+  Frontend: http://localhost:8501
