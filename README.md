@@ -1,4 +1,4 @@
-# Actividad-6---Prediccion-de-riesgo-de-fraude
+# Actividad-6---Prediccion-de-riesgo-de-fraude (Ver FASE II más abajo)
 Reporte técnico de evaluación, validación e impacto en el negocio
 # Predicción de Riesgo de Detección de Fraude en Tarjetas de Crédito
 **Reporte Técnico de Evaluación, Validación e Impacto en el Negocio** *Desarrollado por: Yasmin Mtz Pinillo*
