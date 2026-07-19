@@ -167,9 +167,12 @@ Se incluyen todos los archivos requeridos para la ejecución, dentro de este pro
   
   <img width="736" height="458" alt="Imagen resultado después de JSON" src="https://github.com/user-attachments/assets/1e012937-c34d-47c9-894e-54a6f9d0c772" />
 
-* Evidencia de Streamlit - Pruebas funcionales. Se observa la evaluación de transacción identificada como de fraude (caso extremo):
+* Evidencia de Streamlit - Pruebas funcionales. Se observa la evaluación de transacción identificada como de fraude (2 casos uno con fraude y otro sin el):
 
   <img width="736" height="424" alt="Imagen de streamlit" src="https://github.com/user-attachments/assets/46b56049-3fa9-4cb2-9b18-ecdde6256abe" />
+
+  <img width="1391" height="880" alt="Imagen de streamlit caso extremo 2" src="https://github.com/user-attachments/assets/3196fe01-0310-40c7-8973-1bafff3c1f85" />
+
 
 ## 📘 Manual de despliegue en la nube
 
@@ -221,3 +224,7 @@ Archivos requeridos:
 Puertos: 8000 y 8501
 
 RAM: 1.2 GB, 1 vCPU, 1 GB de almacenamiento y tiempo de ejecución de Linux x86_64
+
+## 🏁 Conclusiones de la FASE II
+
+Como parte de esta fase se ha documentado como preparar un entorno para una solución de detección de fraude con FastAPI, Streamlit y un modelo de ML, dentro de un contenedor Docker que considera backend, forntend y el modelo de un solo servicio. En el proceso de preparar el entorno, construir la imagen (complicado), probarla localmente y resolver diferentes problemas de rutas, permisos y puertos, pude observar que existen diferentes retos, como la falta de experiencia sin embargo, a través del uso de la IA, fue posible concluir y ver finalmente el despliegue del proyecto.
