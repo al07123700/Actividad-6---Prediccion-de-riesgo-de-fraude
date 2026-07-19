@@ -146,3 +146,78 @@ Componente/	              Tecnología
 * Acceder a servicios
   API: http://localhost:8000/docs
   Frontend: http://localhost:8501
+
+Se incluyen todos los archivos requeridos para la ejecución, dentro de este proyecto.
+
+## Evidencias
+
+* Creación de una imagen funcional en dockers, resaltó que se realizaron varios ejercicios para corregir diferentes errores en el proceso, pero aquí se incluye una de ellas:
+  
+  <img width="736" height="439" alt="Imagen funcional dockers" src="https://github.com/user-attachments/assets/5af31fb4-8911-47f4-a421-db598236fdb3" />
+
+* Imagen de la creación de la API:
+
+  <img width="736" height="460" alt="Creacion de la API" src="https://github.com/user-attachments/assets/87140869-48e9-45eb-b4df-5002baf85706" />
+
+* Ingreso de JSON, después de haber corregido algunos errores en las variables:
+
+  <img width="736" height="419" alt="Imagen ingreso de JSON" src="https://github.com/user-attachments/assets/213d4637-2ff9-4c6a-8ac4-9b8413ba2334" />
+
+* Evidencia del resultado en API después de haber ingresado JSON:
+  
+  <img width="736" height="458" alt="Imagen resultado después de JSON" src="https://github.com/user-attachments/assets/1e012937-c34d-47c9-894e-54a6f9d0c772" />
+
+* Evidencia de Streamlit - Pruebas funcionales. Se observa la evaluación de transacción identificada como de fraude (caso extremo):
+
+  <img width="736" height="424" alt="Imagen de streamlit" src="https://github.com/user-attachments/assets/46b56049-3fa9-4cb2-9b18-ecdde6256abe" />
+
+## 📘 Manual de despliegue en la nube
+
+🧩 1. Descripción general del proceso de despliegue
+
+1.- Construir la imagen Docker que contiene:
+
+* Backend (FastAPI)
+* Frontend (Streamlit)
+* Modelo de ML
+* Script de arranque (start.sh)
+
+2.- Probar la imagen localmente para asegurar que:
+
+* La API responde en localhost:8000
+* El frontend funciona en localhost:8501
+
+3.- Subir la imagen a un registro de contenedores, como:
+
+* Docker Hub
+* GitHub Container Registry
+* Azure Container Registry
+
+4.- Elegir una estrategia de despliegue, por ejemplo:
+
+* Plataforma como Servicio (PaaS)
+* Contenedores administrados
+* Orquestadores (ECS, AKS, Kubernetes)
+
+5.- Configurar el servicio en la nube para ejecutar el contenedor.
+
+6.- Validar el despliegue mediante pruebas funcionales.
+
+🛠️ 2. Requerimientos técnicos
+
+Software: 
+* Docker desktop
+* Git
+* Plataforma de despliegue, como por ejemplo render, railway o azure, entre otros
+
+Archivos requeridos:
+* docker/Dockerfile
+* docker/start.sh
+* backend/requirements.txt
+* frontend/requirements.txt
+* model/fraud_model.pkl
+* Código fuente del backend y frontend
+
+Puertos: 8000 y 8501
+
+RAM: 1.2 GB, 1 vCPU, 1 GB de almacenamiento y tiempo de ejecución de Linux x86_64
